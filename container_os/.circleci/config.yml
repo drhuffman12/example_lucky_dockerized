@@ -1,0 +1,23 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: crystallang/crystal:nightly
+    steps:
+      - checkout
+      - run: shards install
+      - run: mkdir -p test-results/spec
+      - run: crystal -v > test-results/crystal_version.txt
+      # - run: scripts/version_info > test-results/app_version.txt
+      # - run: time bin/ameba --no-color > test-results/static_code_analysis.ameba.txt
+      - run: time crystal spec > test-results/spec/results.txt
+      # - run: time scripts/test_always > test-results/spec/results.txt
+      # - run: time scripts/test_always_junit_format
+
+      # collect reports
+      - store_test_results:
+          path: test-results
+
+      - store_artifacts:
+          path: test-results
+          destination: test-results
