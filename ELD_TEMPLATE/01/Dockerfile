@@ -39,8 +39,8 @@ WORKDIR /app
 ADD . /app
 
 # Optionally, add `--ignore-crystal-version` to end of `shards install` and `shards update`
-RUN shards install
-RUN shards update
+# RUN shards install
+# RUN shards update
 
 # RUN script/setup
 # RUN shards build

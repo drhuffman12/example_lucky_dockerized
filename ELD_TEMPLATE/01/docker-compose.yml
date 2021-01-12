@@ -4,7 +4,7 @@ services:
     image: postgres
     environment: 
       POSTGRES_HOST_AUTH_METHOD: "trust"
-      POSTGRES_DB: "MY_LUCKY_APP_development"
+      POSTGRES_DB: "my_app_development"
     volumes:
       - ./tmp_db/data/:/var/lib/postgresql/data
     ports:
@@ -14,7 +14,7 @@ services:
         ipv4_address: 172.30.0.5
   app:
     build: .
-    container_name: MY_LUCKY_APP
+    container_name: my_app
     volumes:
       - ./:/app
     ports:
@@ -23,8 +23,8 @@ services:
     depends_on:
       - db_postgres
     environment:
-      DATABASE_URL: postgres://postgres:@postgres:5432/MY_LUCKY_APP_development
-      # DATABASE_URL: postgres://0.0.0.0:@postgres:5432/MY_LUCKY_APP_development
+      DATABASE_URL: postgres://postgres:@db_postgres:5432/my_app_development
+      # DATABASE_URL: 0.0.0.0://postgres:@postgres:5432/my_app_development
       # SECRET_KEY_BASE: lucky_framework_32_character_key
       SECRET_KEY_BASE: m2H5LC0AUMa1v7z4jWIteF+/GhTsZopYGmg3Wo+Yw/Y=
       SEND_GRID_KEY: ''
@@ -46,5 +46,5 @@ networks:
       config:
         - subnet: 172.30.0.0/24
         # NOTE: Adjust the '172.30.0.x' values as applicable if you get an error like:
-        #   Creating network "MY_LUCKY_APP" with the default driver
+        #   Creating network "my_app" with the default driver
         #   ERROR: Pool overlaps with other one on this address space
