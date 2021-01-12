@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+
+# ./script/clean_docker
+
+docker-compose down
+sudo chown -R $USER:$(id -g) tmp_db
+sudo if [ -d tmp_db/data ] rm -R tmp_db/data
+mkdir tmp_db/data
